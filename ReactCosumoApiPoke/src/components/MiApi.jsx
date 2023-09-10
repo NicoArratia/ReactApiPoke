@@ -1,5 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import '../App.css'; // Importa tu archivo CSS aquí
+
+function Header() {
+  return (
+    <header className="navbar navbar-dark bg-primary">
+      <div className="container">
+        <h1 className="navbar-brand">Pokémon ordenados API</h1>
+      </div>
+    </header>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="bg-light text-center p-3">
+      <div className="container">
+        <p>&copy; 2023 Poke api Nico Arratia</p>
+      </div>
+    </footer>
+  );
+}
 
 function App() {
   const [pokemonList, setPokemonList] = useState([]);
@@ -7,7 +28,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortBy, setSortBy] = useState('number');
 
-  const itemsPerPage = 9; // Cambiado a 3 por página
+  const itemsPerPage = 15;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,63 +75,66 @@ function App() {
   };
 
   return (
-    <div className="container mt-4">
-      <h1 className="text-center">Pokémon API</h1>
-      <div className="mb-3">
-        <input
-          type="text"
-          className="form-control"
-          placeholder="Buscar Pokémon"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-        <select
-          className="form-select mt-2"
-          value={sortBy}
-          onChange={handleSortChange}
-        >
-          <option value="number">Ordenar por número</option>
-          <option value="name">Ordenar por nombre</option>
-        </select>
-      </div>
-      <div className="row">
-        {currentPokemon.map((pokemon) => (
-          <div key={pokemon.name} className="col-md-4 mb-3">
-            <div className="card">
-              <img
-                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
-                  pokemon.url.split('/').slice(-2, -1)
-                }.png`}
-                alt={pokemon.name}
-                className="card-img-top"
-              />
-              <div className="card-body">
-                <h5 className="card-title">{pokemon.name}</h5>
-                <p className="card-text">
-                  Número: {pokemon.url.split('/').slice(-2, -1)}
-                </p>
+    <div style={{ backgroundColor: 'white', minHeight: '100vh' }}>
+      <Header />
+      <div className="container mt-4">
+        <div className="mb-3">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Buscar Pokémon"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <select
+            className="form-select mt-2"
+            value={sortBy}
+            onChange={handleSortChange}
+          >
+            <option value="number">Ordenar por número</option>
+            <option value="name">Ordenar por nombre</option>
+          </select>
+        </div>
+        <div className="row">
+          {currentPokemon.map((pokemon) => (
+            <div key={pokemon.name} className="col-md-4 mb-3">
+              <div className="card border-primary"> {/* Agregamos la clase border-primary */}
+                <img
+                  src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
+                    pokemon.url.split('/').slice(-2, -1)
+                  }.png`}
+                  alt={pokemon.name}
+                  className="card-img-top"
+                />
+                <div className="card-body">
+                  <h5 className="card-title">{pokemon.name}</h5>
+                  <p className="card-text">
+                    N°: {pokemon.url.split('/').slice(-2, -1)}
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+        <div className="mt-3">
+          <button
+            className="btn btn-primary me-2"
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            Anterior
+          </button>
+          <span className="fw-bold">Página {currentPage} de {totalPages}</span>
+          <button
+            className="btn btn-primary ms-2"
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+          >
+            Siguiente
+          </button>
+        </div>
       </div>
-      <div className="mt-3">
-        <button
-          className="btn btn-primary me-2"
-          onClick={() => handlePageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          Anterior
-        </button>
-        <span className="fw-bold">Página {currentPage} de {totalPages}</span>
-        <button
-          className="btn btn-primary ms-2"
-          onClick={() => handlePageChange(currentPage + 1)}
-          disabled={currentPage === totalPages}
-        >
-          Siguiente
-        </button>
-      </div>
+      <Footer />
     </div>
   );
 }
