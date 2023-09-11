@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import '../App.css'; // Importa tu archivo CSS aquí
+import '../App.css';
 
 function Header() {
   return (
@@ -29,7 +29,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortBy, setSortBy] = useState('number');
 
-  const itemsPerPage = 18;
+  const itemsPerPage = 15;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -100,7 +100,7 @@ function App() {
         <div className="row">
           {currentPokemon.map((pokemon) => (
             <div key={pokemon.name} className="col-md-4 mb-3">
-              <div className="card border-primary"> {/* Agregamos la clase border-primary */}
+              <div className="card border-primary"> {}
                 <img
                   src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
                     pokemon.url.split('/').slice(-2, -1)
