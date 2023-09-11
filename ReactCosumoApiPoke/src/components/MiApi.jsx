@@ -35,7 +35,7 @@ function App() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://pokeapi.co/api/v2/pokemon?limit=1000`
+          `https://pokeapi.co/api/v2/pokemon?limit=1300`
         );
 
         const pokemonData = response.data.results;
