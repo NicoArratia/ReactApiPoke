@@ -16,6 +16,7 @@ function Footer() {
   return (
     <footer className="bg-light text-center p-3">
       <div className="container">
+        <br />
         <p>&copy; 2023 Poke api Nico Arratia</p>
       </div>
     </footer>
@@ -28,7 +29,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortBy, setSortBy] = useState('number');
 
-  const itemsPerPage = 15;
+  const itemsPerPage = 18;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -95,6 +96,7 @@ function App() {
             <option value="name">Ordenar por nombre</option>
           </select>
         </div>
+        <br />
         <div className="row">
           {currentPokemon.map((pokemon) => (
             <div key={pokemon.name} className="col-md-4 mb-3">
@@ -116,13 +118,16 @@ function App() {
             </div>
           ))}
         </div>
+
+        <br />
+        
         <div className="mt-3">
           <button
             className="btn btn-primary me-2"
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}
           >
-            Anterior
+            Anterior 
           </button>
           <span className="fw-bold">Página {currentPage} de {totalPages}</span>
           <button
@@ -130,7 +135,7 @@ function App() {
             onClick={() => handlePageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
           >
-            Siguiente
+            Siguiente 
           </button>
         </div>
       </div>
