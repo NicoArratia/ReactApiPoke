@@ -23,14 +23,18 @@ function Footer() {
   );
 }
 
+
+
+
 function App() {
+    //definición de estados
   const [pokemonList, setPokemonList] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [sortBy, setSortBy] = useState('number');
-
   const itemsPerPage = 18;
 
+  //use effect para carga de datos iniciales
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -48,10 +52,13 @@ function App() {
     fetchData();
   }, []);
 
+
+
+//filtro según búsqueda por los términos entrados (solo letras)
   const filteredPokemon = pokemonList.filter((pokemon) =>
     pokemon.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
+//orden numeroco o alfabetico
   const sortedPokemon = filteredPokemon.sort((a, b) => {
     if (sortBy === 'number') {
       return a.url.split('/').slice(-2, -1) - b.url.split('/').slice(-2, -1);
@@ -61,12 +68,17 @@ function App() {
     return 0;
   });
 
+
+
+
+  //paginación (esgun items por página) y determina cualés se muestran utilizando slice
   const totalPokemon = sortedPokemon.length;
   const totalPages = Math.ceil(totalPokemon / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentPokemon = sortedPokemon.slice(startIndex, endIndex);
 
+  // actualiza la pagína al tocar los botones pagina siguiente/anterior
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
@@ -75,9 +87,16 @@ function App() {
     setSortBy(e.target.value);
   };
 
+
+
+
+
+  //renderizacion del contenido
   return (
     <div style={{ backgroundColor: 'white', minHeight: '100vh' }}>
+      
       <Header />
+      
       <div className="container mt-4">
         <div className="mb-3">
           <input
@@ -96,7 +115,9 @@ function App() {
             <option value="name">Ordenar por nombre</option>
           </select>
         </div>
+        
         <br />
+        
         <div className="row">
           {currentPokemon.map((pokemon) => (
             <div key={pokemon.name} className="col-md-4 mb-3">
@@ -139,7 +160,9 @@ function App() {
           </button>
         </div>
       </div>
+      
       <Footer />
+    
     </div>
   );
 }
