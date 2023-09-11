@@ -29,7 +29,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortBy, setSortBy] = useState('number');
 
-  const itemsPerPage = 15;
+  const itemsPerPage = 18;
 
   useEffect(() => {
     const fetchData = async () => {
