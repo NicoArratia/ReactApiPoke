@@ -120,7 +120,7 @@ function App() {
         </div>
 
         <br />
-        
+
         <div className="mt-3">
           <button
             className="btn btn-primary me-2"
@@ -129,7 +129,7 @@ function App() {
           >
             Anterior 
           </button>
-          <span className="fw-bold">Página {currentPage} de {totalPages}</span>
+          <span className="fw-bold"> Página {currentPage} de {totalPages} </span>
           <button
             className="btn btn-primary ms-2"
             onClick={() => handlePageChange(currentPage + 1)}
